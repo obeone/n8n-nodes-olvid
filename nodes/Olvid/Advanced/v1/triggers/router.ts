@@ -2,7 +2,8 @@ import { ITriggerResponse, NodeOperationError, type ITriggerFunctions } from 'n8
 
 import { OlvidClient } from '../../../client/OlvidClient';
 import { listenerMap, ListenerType } from '../generated/triggers/generatedInterfaces';
-import { defaultTriggerWaitTime } from '../../../constants';
+import { defaultTriggerWaitTime, defaultTriggerRetryTime } from '../../../constants';
+import { listenWithRetry, verifyDaemonConnection } from '../../../GenericFunctions';
 
 export async function router(this: ITriggerFunctions): Promise<ITriggerResponse> {
     const credentials = await this.getCredentials('olvidApi') as { clientKey: string, daemonEndpoint: string };
@@ -13,7 +14,11 @@ export async function router(this: ITriggerFunctions): Promise<ITriggerResponse>
 
     const listener = this.getNodeParameter('updates') as ListenerType;
 
-    const initializeListener = (callback?: () => void, returnMockData: boolean = false): Function => {
+    const initializeListener = (
+        callback?: () => void,
+        returnMockData: boolean = false,
+        endCallback?: (error?: Error) => void,
+    ): Function => {
         const handler = listenerMap[listener];
         if (!handler) {
             throw new NodeOperationError(
@@ -21,14 +26,18 @@ export async function router(this: ITriggerFunctions): Promise<ITriggerResponse>
                 `Invalid trigger update type: ${listener}`
             );
         }
-        return handler.call(this, client, callback, returnMockData);
+        return handler.call(this, client, callback, returnMockData, endCallback);
 
     };
 
     // Initialize listeners for active workflows
     let closeListener: Function | undefined;
     if (this.getMode() !== 'manual') {
-        closeListener = initializeListener();
+        closeListener = listenWithRetry(
+            (endCb) => initializeListener(undefined, false, endCb),
+            () => verifyDaemonConnection(client),
+            defaultTriggerRetryTime,
+        );
     }
 
     const closeFunction = async () => {

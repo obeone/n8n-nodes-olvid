@@ -10,7 +10,7 @@ import * as notifications from '../../../../../protobuf/olvid/daemon/notificatio
 // noinspection ES6UnusedImports
 import type { ITriggerFunctions } from 'n8n-workflow';
 
-export function messageLocationSharingUpdate(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false): Function {
+export function messageLocationSharingUpdate(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false, onEnd?: (error?: Error) => void): Function {
     if (returnMockData) {
         this.emit([this.helpers.returnJsonArray([{
 // message.mockData,
@@ -25,5 +25,5 @@ export function messageLocationSharingUpdate(this: ITriggerFunctions, client: Ol
 		onCallback?.();
 	}
 
-	return client.stubs.messageNotificationStub.messageLocationSharingUpdate({}, callback, () => {});
+	return client.stubs.messageNotificationStub.messageLocationSharingUpdate({}, callback, (error?: Error) => { onEnd?.(error); });
 }

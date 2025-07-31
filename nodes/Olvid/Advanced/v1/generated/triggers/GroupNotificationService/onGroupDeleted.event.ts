@@ -10,7 +10,7 @@ import * as notifications from '../../../../../protobuf/olvid/daemon/notificatio
 // noinspection ES6UnusedImports
 import type { ITriggerFunctions } from 'n8n-workflow';
 
-export function groupDeleted(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false): Function {
+export function groupDeleted(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false, onEnd?: (error?: Error) => void): Function {
     if (returnMockData) {
         this.emit([this.helpers.returnJsonArray([{
 // group.mockData
@@ -24,5 +24,5 @@ export function groupDeleted(this: ITriggerFunctions, client: OlvidClient, onCal
 		onCallback?.();
 	}
 
-	return client.stubs.groupNotificationStub.groupDeleted({}, callback, () => {});
+	return client.stubs.groupNotificationStub.groupDeleted({}, callback, (error?: Error) => { onEnd?.(error); });
 }

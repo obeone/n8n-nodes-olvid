@@ -10,7 +10,7 @@ import * as notifications from '../../../../../protobuf/olvid/daemon/notificatio
 // noinspection ES6UnusedImports
 import type { ITriggerFunctions } from 'n8n-workflow';
 
-export function callIncomingCall(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false): Function {
+export function callIncomingCall(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false, onEnd?: (error?: Error) => void): Function {
     if (returnMockData) {
         this.emit([this.helpers.returnJsonArray([{
 // callIdentifier.mockData,
@@ -32,5 +32,5 @@ export function callIncomingCall(this: ITriggerFunctions, client: OlvidClient, o
 		onCallback?.();
 	}
 
-	return client.stubs.callNotificationStub.callIncomingCall({}, callback, () => {});
+	return client.stubs.callNotificationStub.callIncomingCall({}, callback, (error?: Error) => { onEnd?.(error); });
 }

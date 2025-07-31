@@ -10,7 +10,7 @@ import * as notifications from '../../../../../protobuf/olvid/daemon/notificatio
 // noinspection ES6UnusedImports
 import type { ITriggerFunctions } from 'n8n-workflow';
 
-export function groupMemberPermissionsUpdated(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false): Function {
+export function groupMemberPermissionsUpdated(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false, onEnd?: (error?: Error) => void): Function {
     if (returnMockData) {
         this.emit([this.helpers.returnJsonArray([{
 // group.mockData,
@@ -26,5 +26,5 @@ export function groupMemberPermissionsUpdated(this: ITriggerFunctions, client: O
 		onCallback?.();
 	}
 
-	return client.stubs.groupNotificationStub.groupMemberPermissionsUpdated({}, callback, () => {});
+	return client.stubs.groupNotificationStub.groupMemberPermissionsUpdated({}, callback, (error?: Error) => { onEnd?.(error); });
 }
