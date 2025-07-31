@@ -17,9 +17,10 @@
 		"resolveJsonModule": true,
 		"incremental": true,
 		"declaration": true,
-		"sourceMap": true,
-		"skipLibCheck": true,
-		"outDir": "./dist/"
+        "sourceMap": true,
+                "skipLibCheck": true,
+                "outDir": "./dist/",
+                "types": ["node"]
 	},
 	"include": ["credentials/**/*", "nodes/**/*", "nodes/**/*.json", "package.json"]
 }
