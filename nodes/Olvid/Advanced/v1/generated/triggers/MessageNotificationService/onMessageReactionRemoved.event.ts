@@ -10,7 +10,7 @@ import * as notifications from '../../../../../protobuf/olvid/daemon/notificatio
 // noinspection ES6UnusedImports
 import type { ITriggerFunctions } from 'n8n-workflow';
 
-export function messageReactionRemoved(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false): Function {
+export function messageReactionRemoved(this: ITriggerFunctions, client: OlvidClient, onCallback?: Function, returnMockData: boolean = false, onEnd?: (error?: Error) => void): Function {
     if (returnMockData) {
         this.emit([this.helpers.returnJsonArray([{
 // message.mockData,
@@ -25,5 +25,5 @@ export function messageReactionRemoved(this: ITriggerFunctions, client: OlvidCli
 		onCallback?.();
 	}
 
-	return client.stubs.messageNotificationStub.messageReactionRemoved({}, callback, () => {});
+	return client.stubs.messageNotificationStub.messageReactionRemoved({}, callback, (error?: Error) => { onEnd?.(error); });
 }

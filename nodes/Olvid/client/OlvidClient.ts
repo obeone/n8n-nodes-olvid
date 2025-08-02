@@ -14,6 +14,7 @@ import * as services from "../protobuf/olvid/daemon/services/v1/services";
 import * as command from "../protobuf/olvid/daemon/command/v1/command";
 import * as notification from "../protobuf/olvid/daemon/notification/v1/notification";
 import EventEmitter from "events";
+import { randomUUID } from "node:crypto";
 
 const ATTACHMENT_CHUNK_SIZE = 1024 * 1024; // 1MB
 
@@ -655,7 +656,7 @@ export class OlvidClient {
     */
     public onInvitationReceived(args: {callback: (invitation: datatypes.Invitation) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.InvitationFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.InvitationReceivedNotification) => {
@@ -681,7 +682,7 @@ export class OlvidClient {
 
     public onInvitationSent(args: {callback: (invitation: datatypes.Invitation) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.InvitationFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.InvitationSentNotification) => {
@@ -707,7 +708,7 @@ export class OlvidClient {
 
     public onInvitationDeleted(args: {callback: (invitation: datatypes.Invitation) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.InvitationFilter, invitationIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.InvitationDeletedNotification) => {
@@ -733,7 +734,7 @@ export class OlvidClient {
 
     public onInvitationUpdated(args: {callback: (invitation: datatypes.Invitation, previousInvitationStatus: datatypes.Invitation_Status) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.InvitationFilter, invitationIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.InvitationUpdatedNotification) => {
@@ -762,7 +763,7 @@ export class OlvidClient {
     */
     public onContactNew(args: {callback: (contact: datatypes.Contact) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.ContactFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.ContactNewNotification) => {
@@ -788,7 +789,7 @@ export class OlvidClient {
 
     public onContactDeleted(args: {callback: (contact: datatypes.Contact) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.ContactFilter, contactIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.ContactDeletedNotification) => {
@@ -814,7 +815,7 @@ export class OlvidClient {
 
     public onContactDetailsUpdated(args: {callback: (contact: datatypes.Contact, previousDetails: datatypes.IdentityDetails) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.ContactFilter, contactIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.ContactDetailsUpdatedNotification) => {
@@ -840,7 +841,7 @@ export class OlvidClient {
 
     public onContactPhotoUpdated(args: {callback: (contact: datatypes.Contact) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.ContactFilter, contactIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.ContactPhotoUpdatedNotification) => {
@@ -869,7 +870,7 @@ export class OlvidClient {
     */
     public onGroupNew(args: {callback: (group: datatypes.Group) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupFilter?: datatypes.GroupFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupNewNotification) => {
@@ -895,7 +896,7 @@ export class OlvidClient {
 
     public onGroupDeleted(args: {callback: (group: datatypes.Group) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupDeletedNotification) => {
@@ -921,7 +922,7 @@ export class OlvidClient {
 
     public onGroupNameUpdated(args: {callback: (group: datatypes.Group, previousName: string) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter, previousNameSearch?: string}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupNameUpdatedNotification) => {
@@ -947,7 +948,7 @@ export class OlvidClient {
 
     public onGroupPhotoUpdated(args: {callback: (group: datatypes.Group) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupPhotoUpdatedNotification) => {
@@ -973,7 +974,7 @@ export class OlvidClient {
 
     public onGroupDescriptionUpdated(args: {callback: (group: datatypes.Group, previousDescription: string) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter, previousDescriptionSearch?: string}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupDescriptionUpdatedNotification) => {
@@ -999,7 +1000,7 @@ export class OlvidClient {
 
     public onGroupPendingMemberAdded(args: {callback: (group: datatypes.Group, pendingMember: datatypes.PendingGroupMember) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter, pendingMemberFilter?: datatypes.PendingGroupMemberFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupPendingMemberAddedNotification) => {
@@ -1025,7 +1026,7 @@ export class OlvidClient {
 
     public onGroupPendingMemberRemoved(args: {callback: (group: datatypes.Group, pendingMember: datatypes.PendingGroupMember) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter, pendingMemberFilter?: datatypes.PendingGroupMemberFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupPendingMemberRemovedNotification) => {
@@ -1051,7 +1052,7 @@ export class OlvidClient {
 
     public onGroupMemberJoined(args: {callback: (group: datatypes.Group, member: datatypes.GroupMember) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter, memberFilter?: datatypes.GroupMemberFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupMemberJoinedNotification) => {
@@ -1077,7 +1078,7 @@ export class OlvidClient {
 
     public onGroupMemberLeft(args: {callback: (group: datatypes.Group, member: datatypes.GroupMember) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter, memberFilter?: datatypes.GroupMemberFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupMemberLeftNotification) => {
@@ -1103,7 +1104,7 @@ export class OlvidClient {
 
     public onGroupOwnPermissionsUpdated(args: {callback: (group: datatypes.Group, permissions: datatypes.GroupMemberPermissions, previousPermissions: datatypes.GroupMemberPermissions) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter, permissionsFilter?: datatypes.GroupPermissionFilter, previousPermissionsFilter?: datatypes.GroupPermissionFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupOwnPermissionsUpdatedNotification) => {
@@ -1129,7 +1130,7 @@ export class OlvidClient {
 
     public onGroupMemberPermissionsUpdated(args: {callback: (group: datatypes.Group, member: datatypes.GroupMember, previousPermissions: datatypes.GroupMemberPermissions) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[], groupFilter?: datatypes.GroupFilter, memberFilter?: datatypes.GroupMemberFilter, previousPermissionFilter?: datatypes.GroupMemberFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupMemberPermissionsUpdatedNotification) => {
@@ -1155,7 +1156,7 @@ export class OlvidClient {
 
     public onGroupUpdateInProgress(args: {callback: (groupId: bigint) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupUpdateInProgressNotification) => {
@@ -1181,7 +1182,7 @@ export class OlvidClient {
 
     public onGroupUpdateFinished(args: {callback: (groupId: bigint) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, groupIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.GroupUpdateFinishedNotification) => {
@@ -1210,7 +1211,7 @@ export class OlvidClient {
     */
     public onDiscussionNew(args: {callback: (discussion: datatypes.Discussion) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.DiscussionFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.DiscussionNewNotification) => {
@@ -1236,7 +1237,7 @@ export class OlvidClient {
 
     public onDiscussionLocked(args: {callback: (discussion: datatypes.Discussion) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.DiscussionFilter, discussionIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.DiscussionLockedNotification) => {
@@ -1262,7 +1263,7 @@ export class OlvidClient {
 
     public onDiscussionTitleUpdated(args: {callback: (discussion: datatypes.Discussion, previousTitle: string) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.DiscussionFilter, discussionIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.DiscussionTitleUpdatedNotification) => {
@@ -1288,7 +1289,7 @@ export class OlvidClient {
 
     public onDiscussionSettingsUpdated(args: {callback: (discussion: datatypes.Discussion, newSettings: datatypes.DiscussionSettings, previousSettings: datatypes.DiscussionSettings) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.DiscussionFilter, discussionIds?: bigint[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.DiscussionSettingsUpdatedNotification) => {
@@ -1317,7 +1318,7 @@ export class OlvidClient {
     */
     public onMessageReceived(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageReceivedNotification) => {
@@ -1343,7 +1344,7 @@ export class OlvidClient {
 
     public onMessageSent(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageSentNotification) => {
@@ -1369,7 +1370,7 @@ export class OlvidClient {
 
     public onMessageDeleted(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageDeletedNotification) => {
@@ -1395,7 +1396,7 @@ export class OlvidClient {
 
     public onMessageBodyUpdated(args: {callback: (message: datatypes.Message, previousBody: string) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageBodyUpdatedNotification) => {
@@ -1421,7 +1422,7 @@ export class OlvidClient {
 
     public onMessageUploaded(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageUploadedNotification) => {
@@ -1447,7 +1448,7 @@ export class OlvidClient {
 
     public onMessageDelivered(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageDeliveredNotification) => {
@@ -1473,7 +1474,7 @@ export class OlvidClient {
 
     public onMessageRead(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageReadNotification) => {
@@ -1499,7 +1500,7 @@ export class OlvidClient {
 
     public onMessageLocationReceived(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageLocationReceivedNotification) => {
@@ -1525,7 +1526,7 @@ export class OlvidClient {
 
     public onMessageLocationSent(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageLocationSentNotification) => {
@@ -1551,7 +1552,7 @@ export class OlvidClient {
 
     public onMessageLocationSharingStart(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageLocationSharingStartNotification) => {
@@ -1577,7 +1578,7 @@ export class OlvidClient {
 
     public onMessageLocationSharingUpdate(args: {callback: (message: datatypes.Message, previousLocation: datatypes.MessageLocation) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageLocationSharingUpdateNotification) => {
@@ -1603,7 +1604,7 @@ export class OlvidClient {
 
     public onMessageLocationSharingEnd(args: {callback: (message: datatypes.Message) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], filter?: datatypes.MessageFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageLocationSharingEndNotification) => {
@@ -1629,7 +1630,7 @@ export class OlvidClient {
 
     public onMessageReactionAdded(args: {callback: (message: datatypes.Message, reaction: datatypes.MessageReaction) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], filter?: datatypes.MessageFilter, reactionFilter?: datatypes.ReactionFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageReactionAddedNotification) => {
@@ -1655,7 +1656,7 @@ export class OlvidClient {
 
     public onMessageReactionUpdated(args: {callback: (message: datatypes.Message, reaction: datatypes.MessageReaction, previousReaction: datatypes.MessageReaction) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], messageFilter?: datatypes.MessageFilter, reactionFilter?: datatypes.ReactionFilter, previousReactionFilter?: datatypes.ReactionFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageReactionUpdatedNotification) => {
@@ -1681,7 +1682,7 @@ export class OlvidClient {
 
     public onMessageReactionRemoved(args: {callback: (message: datatypes.Message, reaction: datatypes.MessageReaction) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, messageIds?: datatypes.MessageId[], filter?: datatypes.MessageFilter, reactionFilter?: datatypes.ReactionFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.MessageReactionRemovedNotification) => {
@@ -1710,7 +1711,7 @@ export class OlvidClient {
     */
     public onAttachmentReceived(args: {callback: (attachment: datatypes.Attachment) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.AttachmentFilter}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.AttachmentReceivedNotification) => {
@@ -1736,7 +1737,7 @@ export class OlvidClient {
 
     public onAttachmentUploaded(args: {callback: (attachment: datatypes.Attachment) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint, filter?: datatypes.AttachmentFilter, messageIds?: datatypes.MessageId[], attachmentIds?: datatypes.AttachmentId[]}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.AttachmentUploadedNotification) => {
@@ -1765,7 +1766,7 @@ export class OlvidClient {
     */
     public onCallIncomingCall(args: {callback: (callIdentifier: string, discussionId: bigint, participantId: datatypes.CallParticipantId, callerDisplayName: string, participantCount: number) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.CallIncomingCallNotification) => {
@@ -1791,7 +1792,7 @@ export class OlvidClient {
 
     public onCallRinging(args: {callback: (callIdentifier: string, participantId: datatypes.CallParticipantId) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.CallRingingNotification) => {
@@ -1817,7 +1818,7 @@ export class OlvidClient {
 
     public onCallAccepted(args: {callback: (callIdentifier: string, participantId: datatypes.CallParticipantId) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.CallAcceptedNotification) => {
@@ -1843,7 +1844,7 @@ export class OlvidClient {
 
     public onCallDeclined(args: {callback: (callIdentifier: string, participantId: datatypes.CallParticipantId) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.CallDeclinedNotification) => {
@@ -1869,7 +1870,7 @@ export class OlvidClient {
 
     public onCallBusy(args: {callback: (callIdentifier: string, participantId: datatypes.CallParticipantId) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.CallBusyNotification) => {
@@ -1895,7 +1896,7 @@ export class OlvidClient {
 
     public onCallEnded(args: {callback: (callIdentifier: string) => Promise<void> | void, endCallback?: (error ?: Error) => void, count?: bigint}): Function {
         let cancelFn: Function;
-        const callbackId = crypto.randomUUID();
+        const callbackId = randomUUID();
         this.activeCallbacks.add(callbackId);
 
         let wrappedCallback = (notification: notification.CallEndedNotification) => {
